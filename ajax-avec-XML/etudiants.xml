@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<etudiants>
+      <etudiant>
+           <Nom>Maryem</Nom>
+           <Matricule>C29782</Matricule>
+           <Filiere>DA2I</Filiere>
+      </etudiant>
+      <etudiant>
+           <Nom>Thouraye</Nom>
+           <Matricule>C25248</Matricule>
+           <Filiere>DA2I</Filiere>
+      </etudiant> 
+      <etudiant>
+           <Nom>Sara</Nom>
+           <Matricule>C30301</Matricule>
+           <Filiere>DA2I</Filiere>
+      </etudiant>
+</etudiants>

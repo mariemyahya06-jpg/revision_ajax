@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ajax Avec JSON</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Charger Les Etudiants Avec AJAX et JSON</h1>
+        <p>Cliquez sur le bouton pour charger un message depuis le fichier JSON</p>
+        <button onclick="ChargerEtudiants()"> Cliquez ici</button>
+        <div id="resultat"></div>
+    </div>
+    <script>
+    async function ChargerEtudiants() {
+        try {
+            const response = await fetch("etudiants.json");
+
+            if (!response.ok) {
+                throw new Error("Error HTTP: " + response.status);
+            }
+
+            const etudiants = await response.json();
+
+            var contenue = "<h2>Liste des etudiants:</h2>";
+
+            for (var i = 0; i < etudiants.length; i++) {
+                var statut = "";
+
+                if (etudiants[i].Moyenne >= 10) {
+                    statut = "Admis";
+                } else {
+                    statut = "Ajourné";
+                }
+
+                contenue += "<div class='card'>";
+                contenue += "<p><strong>Nom:</strong> " + etudiants[i].Nom + "</p>";
+                contenue += "<p><strong>Matricule:</strong> " + etudiants[i].Matricule + "</p>";
+                contenue += "<p><strong>Filiere:</strong> " + etudiants[i].Filiere + "</p>";
+                contenue += "<p><strong>Age:</strong> " + etudiants[i].Age + "</p>";
+                contenue += "<p><strong>Moyenne:</strong> " + etudiants[i].Moyenne + "</p>";
+                contenue += "<p><strong>Statut:</strong> " + statut + "</p>";
+                contenue += "</div>";
+            }
+
+            document.getElementById("resultat").innerHTML = contenue;
+
+        } catch (error) {
+            document.getElementById("resultat").innerHTML =
+                "<p style='color:red;'> " + error.message + "</p>";
+        }
+    }
+</script>>
+</body>
+
+</html>

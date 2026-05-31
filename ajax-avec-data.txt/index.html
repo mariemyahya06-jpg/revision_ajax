@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <mata charset="UTF-8"></mata>
+    <title>Ajax Avec fichier text</title>
+</head>
+
+<body>
+    <h1>Ajax Avec fichier text</h1>
+    <p>Cliquez sur le bouton pour charger un message depuis le fichier data.txt</p>
+    <button onclick="ChargerMessage()">Cliquez ici</button>
+    <div id="resultat"></div>
+    <div id="etat"></div>
+    <script>
+        function ChargerMessage() {
+            var request = new XMLHttpRequest();
+            request.open("GET", "data.txt", true);
+            request.onreadystatechange = function () {
+                document.getElementById("etat").innerHTML = "Etat de la request:"+"<br>"+"readyState = "+ request.readyState +"<br>"+"status = "+ request.status;
+                if (request.readyState === 4 && request.status === 200) {
+                    document.getElementById("resultat").innerHTML = request.responseText;
+                }
+            };
+            request.send();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+[
+    {
+        "Nom": "Maryem",
+        "Matricule": "C29782",
+        "Filiere": "DA2I",
+        "Age": 19,
+        "Moyenne": 15
+    },
+    {
+        "Nom": "Fatimetou",
+        "Matricule": "C25248",
+        "Filiere": "DA2I",
+        "Age": 20,
+        "Moyenne": 15
+    },
+    {
+        "Nom": "Sara",
+        "Matricule": "C30301",
+        "Filiere": "DA2I",
+        "Age": 19,
+        "Moyenne": 13
+    },
+    {
+        "Nom": "nora",
+        "Matricule": "C26789",
+        "Filiere": "DA2I",
+        "Age": 19,
+        "Moyenne": 8
+    }
+]

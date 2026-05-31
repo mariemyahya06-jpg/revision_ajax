@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax Avec XML</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Charger les Etudiants Avec AJAX et XML</h1>
+
+            <p>
+                Cliquez sur ce bouton pour charger les étudiants depuis un fichier XML
+            </p>
+
+            <button onclick="ChargerEtudiants()">Cliquez ici</button>
+
+            <div id="resultat"></div>
+        </div>
+
+        <script>
+            function ChargerEtudiants() {
+                var request = new XMLHttpRequest();
+
+                request.open("GET", "etudiants.xml", true);
+
+                request.onreadystatechange = function() {
+                    if (request.readyState === 4 && request.status === 200) {
+                        var requestXML = request.responseXML;
+
+                        var etudiants = requestXML.getElementsByTagName("etudiant");
+
+                        var contenue = "<h2>Liste des étudiants</h2>";
+
+                        for (var i = 0; i < etudiants.length; i++) {
+                            var Nom = etudiants[i].getElementsByTagName("Nom")[0].textContent;
+                            var Matricule = etudiants[i].getElementsByTagName("Matricule")[0].textContent;
+                            var Filiere = etudiants[i].getElementsByTagName("Filiere")[0].textContent;
+
+                            contenue += "<div class='card'>";
+                            contenue += "<p>Nom: " + Nom + "</p>";
+                            contenue += "<p>Matricule: " + Matricule + "</p>";
+                            contenue += "<p>Filière: " + Filiere + "</p>";
+                            contenue += "</div>";
+                        }
+
+                        document.getElementById("resultat").innerHTML = contenue;
+                    }
+                };
+
+                request.send();
+            }
+        </script>
+    </body>
+</html>

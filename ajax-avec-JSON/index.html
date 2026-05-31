@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ajax Avec JSON</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Charger Les Etudiants Avec AJAX et JSON</h1>
+        <p>Cliquez sur le bouton pour charger un message depuis le fichier JSON</p>
+        <button onclick="ChargerEtudiants()"> Cliquez ici</button>
+        <div id="resultat"></div>
+    </div>
+    <script>
+        function ChargerEtudiants() {
+            var request = new XMLHttpRequest();
+            request.open("GET", "etudiants.json", true);
+            request.onreadystatechange = function () {
+                if (request.readyState === 4 && request.status === 200) {
+                    var etudiants = JSON.parse(request.responseText)
+                    var contenue = "<h2> Liste des etudiants </h2>";
+                    for (var i = 0; i < etudiants.length; i++) {
+                        var status = " ";
+                        if (etudiants[i].Moyenne >= 10) {
+                            status = "Admis";
+                        } else {
+                            status = "Ajourne";
+                        }
+                        contenue += "<div class='card'>";
+                        contenue += "<p><strong> Nom: " + etudiants[i].Nom + "</strong></p>";
+                        contenue += "<p><strong> Matricule = " + etudiants[i].Matricule + "</strong></p>";
+                        contenue += "<p><strong> Filiere: " + etudiants[i].Filiere + "</strong></p>";
+                        contenue += "<p><strong> Age = " + etudiants[i].Age + "</strong></p>";
+                        contenue += "<p><strong> Moyenne = " + etudiants[i].Moyenne + "</strong></p>";
+                        contenue += "<p><strong> status: " + status + "</strong></p>";
+                        contenue += "</div>";
+                    }
+                    document.getElementById("resultat").innerHTML = contenue;
+                }
+            };
+            request.send();
+        }
+    </script>
+</body>
+
+</html>
