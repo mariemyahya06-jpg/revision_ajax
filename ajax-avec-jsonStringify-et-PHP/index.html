@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire JSON</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ajouter un étudiant</h1>
+
+        <form onsubmit="ajouterEtudiant(event)">
+            <input type="text" id="nom" placeholder="Nom" required>
+
+            <input type="text" id="matricule" placeholder="Matricule" required>
+
+            <input type="text" id="filiere" placeholder="Filière" required>
+
+            <input type="number" id="age" placeholder="Âge" required>
+
+            <input type="number" id="moyenne" placeholder="Moyenne" step="0.01" required>
+
+            <button type="submit">Ajouter</button>
+        </form>
+
+        <h2>Résultat :</h2>
+        <div id="resultat"></div>
+    </div>
+
+    <script>
+        async function ajouterEtudiant(event) {
+            event.preventDefault();
+
+            const etudiant = {
+                Nom: document.getElementById("nom").value,
+                Matricule: document.getElementById("matricule").value,
+                Filiere: document.getElementById("filiere").value,
+                Age: Number(document.getElementById("age").value),
+                Moyenne: Number(document.getElementById("moyenne").value)
+            };
+
+            const jsonEtudiant = JSON.stringify(etudiant);
+
+            console.log("Object JavaScript:", etudiant);
+            console.log("JSON à envoyer au serveur:", jsonEtudiant);
+
+            try {
+                const response = await fetch("api.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: jsonEtudiant
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erreur HTTP : " + response.status);
+                }
+
+                const data = await response.json();
+
+                console.log("Réponse du serveur:", data);
+
+                document.getElementById("resultat").innerHTML =
+                    "<div class='card'>" +
+                        "<h3>" + data.message + "</h3>" +
+                        "<p><strong>Nom:</strong> " + data.etudiant.Nom + "</p>" +
+                        "<p><strong>Matricule:</strong> " + data.etudiant.Matricule + "</p>" +
+                        "<p><strong>Filière:</strong> " + data.etudiant.Filiere + "</p>" +
+                        "<p><strong>Âge:</strong> " + data.etudiant.Age + "</p>" +
+                        "<p><strong>Moyenne:</strong> " + data.etudiant.Moyenne + "</p>" +
+                    "</div>";
+
+            } catch (error) {
+                document.getElementById("resultat").innerHTML =
+                    "<p style='color:red;'>Erreur : " + error.message + "</p>";
+
+                console.log("Erreur:", error.message);
+            }
+        }
+    </script>
+</body>
+
+</html>
